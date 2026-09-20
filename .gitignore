@@ -1,0 +1,18 @@
+# Environment variables (MUST IGNORE)
+.env
+.env.*
+
+# Node modules
+node_modules/
+
+dist
+
+# Prisma generated outputs
+prisma/migrations/
+
+# AI Tooling & Local Skills (Optional/Recommended for git clean-up)
+.claude/
+.windsurf/
+.agents/
+skills-lock.json
+/src/generated/prisma

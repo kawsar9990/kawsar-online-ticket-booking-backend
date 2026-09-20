@@ -1,0 +1,117 @@
+
+model HotelDealHomePage {
+  id              String   @id @default(ulid())
+  slug            String   @unique
+  name            String
+  thumbnailUrl    String
+  starRating      Int      @default(0)
+  totalReviews    Int      @default(0)
+  isFeatured      Boolean  @default(false)
+
+  detail          HotelDetailsData?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+
+
+model HotelDetailsData {
+  id              String            @id @default(ulid())
+  startingPrice   Float?
+  distanceText    String?
+  address         String?
+  maplink         String?
+  mapEmbedUrl     String?
+  mapRedirectUrl  String?
+  description     String?  @db.Text
+
+  hotelId         String            @unique
+  hotel           HotelDealHomePage @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+
+  galleryImages   HotelGalleryImage[]
+
+  HighLFac        String[]
+  checkInTime     String?
+  checkOutTime    String?
+  additionalFacts String[]
+  paymentMethods  String[]
+
+  categorizedFacilities  CategorizedFacility[]
+
+  rooms           Room[]
+
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+}
+
+
+model HotelGalleryImage {
+  id               String            @id @default(ulid())
+  url              String
+  hotelDetailId    String
+  hotelDetail      HotelDetailsData @relation(fields: [hotelDetailId], references: [id], onDelete: Cascade)
+}
+
+
+model CategorizedFacility {
+  id            String      @id @default(ulid())
+  category      String
+  items         String[]
+
+  hotelDetailId String
+  hotelDetail   HotelDetailsData @relation(fields: [hotelDetailId], references: [id], onDelete: Cascade)
+}
+
+
+
+model Room {
+   id                 String      @id @default(ulid())
+   name               String
+   availableCountText String?
+   availableCount     Int?         @default(1)
+
+   bedType            String
+   maxAdults          Int          @default(2)
+   maxChildren        Int          @default(2)
+   viewType           String?
+   area               String?
+
+   quickAmenities     String[]
+
+   hotelDetailId      String
+   hotelDetail        HotelDetailsData @relation(fields: [hotelDetailId], references: [id], onDelete: Cascade)
+
+   images             RoomImage[]
+   options            RoomOption[]
+
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+}
+
+
+model RoomImage {
+  id        String   @id @default(ulid())
+  url       String
+  roomId    String
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+}
+
+model RoomOption {
+  id            String   @id @default(ulid())
+  title         String   @default("Option 1") 
+  pricePerNight Float   
+  totalPrice    Float   
+  
+
+  benefits      String[] 
+  nonBenefits   String[]
+  
+  isAvailable   Boolean  @default(true)
+
+  roomId        String
+  room          Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
