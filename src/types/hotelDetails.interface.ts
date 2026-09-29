@@ -5,6 +5,7 @@ export interface HotelDetailsData {
   startingPrice: number | null;
   distanceText: string | null;
   address: string | null;
+  city:    string | null;
   maplink: string | null;
   mapEmbedUrl: string | null;
   mapRedirectUrl: string | null;

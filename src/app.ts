@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import router from './routes/route.js';
+import { startEventExpiryCron } from './modules/eventHomePage/eventExpiry.cron.js';
 const app = express();
 
 app.use(cors({
@@ -18,6 +19,9 @@ app.get('/', (req, res) => {
 })
 
 app.use("/api", router);
+
+
+startEventExpiryCron();
 
 app.use((req, res) => {
     res.status(404).json({

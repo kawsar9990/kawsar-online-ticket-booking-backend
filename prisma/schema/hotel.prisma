@@ -21,6 +21,7 @@ model HotelDetailsData {
   startingPrice   Float?
   distanceText    String?
   address         String?
+  city            String?
   maplink         String?
   mapEmbedUrl     String?
   mapRedirectUrl  String?

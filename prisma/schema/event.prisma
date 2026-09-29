@@ -1,0 +1,76 @@
+
+enum EventStatus {
+  LIVE_NOW
+  UPCOMING
+  EXPIRED
+  CANCELLED
+}
+
+model Event {
+  id              String      @id @default(uuid())
+  title           String
+  slug            String      @unique 
+  category        String      
+  bannerImage     String      
+  startDate       DateTime?
+  endDate         DateTime?  
+  startTime       String?    
+  endTime         String?   
+
+  detail         EventDetail?
+
+  venue           String      
+  location        String      
+  startingPrice   Float      
+  currency        String      @default("BDT")
+  isLive          Boolean     @default(false)
+  status          EventStatus @default(UPCOMING)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@index([slug])
+  @@index([startDate])
+}
+
+
+model EventDetail {
+  id          String   @id @default(uuid())
+  eventId     String   @unique
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  title       String
+  venue       String                
+  startDate   DateTime           
+  endDate     DateTime           
+  startTime   String                
+  endTime     String                
+
+  description String   @db.Text
+  contacts    Json?
+
+  tickets     Ticket[]  
+}
+
+
+model Ticket {
+  id            String      @id @default(uuid())
+  eventDetailId String
+  eventDetail   EventDetail @relation(fields: [eventDetailId], references: [id], onDelete: Cascade)
+
+  name          String
+  group         TicketGroup
+  price         Int
+  description   String?
+  includes      String[]
+  available     Boolean     @default(true)
+  sortOrder     Int         @default(0)
+
+  @@index([eventDetailId])
+}
+
+
+enum TicketGroup {
+  BUNDLE
+  SOLO
+  TEAM
+}

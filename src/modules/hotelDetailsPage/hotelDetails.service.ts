@@ -1,20 +1,21 @@
+import { redis } from "../../config/redis.js";
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from "@prisma/adapter-pg";
-import { redis } from "../../config/redis.js";
+
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 
-const CACHE_KEY = "hotel_details_data";
-const CACHE_TTL = 25200;
-
 
 export const getHotelDetailsBySlugFromDB = async (slug: string) => {
+
+const CACHE_KEY = `hotel_details_${slug}`;
+const CACHE_TTL = 25200;
 
 try{
 const cachedData = await redis.get(CACHE_KEY);
 if (cachedData) {
-  return JSON.parse(String(cachedData));
+  return typeof cachedData === 'string' ? JSON.parse(cachedData) : cachedData;
 }
 }catch(error){
   console.error('Redis Get Error:', error);  
@@ -49,6 +50,7 @@ const formattedDetails = {
      startingPrice: detail.startingPrice,
       distanceText: detail.distanceText,
       address: detail.address,
+      city: detail.city,
       maplink: detail.maplink,
       mapEmbedUrl: detail.mapEmbedUrl,
       mapRedirectUrl: detail.mapRedirectUrl,
