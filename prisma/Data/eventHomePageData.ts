@@ -5,19 +5,19 @@ type EventSeedData = Omit<Event, 'id' | 'createdAt' | 'updatedAt'>
 
 export const eventsData: EventSeedData[] = [
   {
-    title: "Traliventa Sports Fest '26 by KUFA x Traliventa",
-    slug: "traliventa-sports-fest-26-by-kufa-x-traliventa",
-    category: "Sports",
+    title: "Winds of Metropolis",
+    slug: "winds-of-metropolis",
+    category: "Consert",
     bannerImage:
-      "https://res.cloudinary.com/dkmzakgx2/image/upload/v1790688629/gdc8ep0obkbtrtjbyyzh_nyiqf5.webp",
+      "https://res.cloudinary.com/dkmzakgx2/image/upload/v1790739408/WOM_Tickify_new_landing_page_copy_DflsgQV_qcqdcr.webp",
 
-    startDate: new Date("2026-10-23T00:00:00.000Z"),
-    endDate: new Date("2026-10-24T00:00:00.000Z"),
-    startTime: "09:00",
-    endTime: "21:00",
-    venue: "Chef's Table Courtside",
-    location: "United City, 100 Feet Road, Madani Ave, Dhaka",
-    startingPrice: 140,
+    startDate: new Date("2026-11-03T00:00:00.000Z"),
+    endDate: new Date('2026-10-03T00:00:00.000Z'),
+    startTime: "15:00",
+    endTime: "23:00",
+    venue: "KIB, Dhaka",
+    location: "Dhaka",
+    startingPrice: 799,
     currency: "BDT",
     isLive: true,
     status: "UPCOMING",
@@ -47,21 +47,21 @@ export const eventsData: EventSeedData[] = [
 
 
   {
-    title: "পঞ্চবিংশ জাতীয় বাক্‌শিল্পোৎসব: অনুরণন",
-    slug: "jatio-bakshilpotshob-onuronon",
-    category: "Competitions",
+    title: "Music. Moments. Renaissance Featuring Shironamhin",
+    slug: "music-moments-renaissance",
+    category: "Consert",
     bannerImage:
-      "https://res.cloudinary.com/dkmzakgx2/image/upload/v1790690067/20260826_221258_-_Mriganka_Banik_xfscbm.jpg",
+      "https://res.cloudinary.com/dkmzakgx2/image/upload/v1790737582/WhatsApp_Image_2026-09-19_at_19.21.54_ginbcc.jpg",
 
     startDate: new Date("2026-11-01T00:00:00.000Z"),
-    endDate: new Date("2026-11-03T00:00:00.000Z"),
-    startTime: "09:00",
-    endTime: "21:00",
+    endDate: new Date("2026-11-01T00:00:00.000Z"),
+    startTime: "08:00",
+    endTime: "18:00",
 
-    venue: "নটর ডেম কলেজ",
+    venue: "Renaissance Dhaka Gulshan Hotel",
     location: "Dhaka, Bangladesh",
 
-    startingPrice: 60,
+    startingPrice: 2499,
     currency: "BDT",
 
     isLive: true,
@@ -123,8 +123,8 @@ export const eventsData: EventSeedData[] = [
     bannerImage:
       "https://res.cloudinary.com/dkmzakgx2/image/upload/v1790690514/image_2026-09-10_194506177_-_Saiyeda_Fatima_Tahura_usodxm.png",
 
-    startDate: new Date("2026-09-01T00:00:00.000Z"),
-    endDate: new Date("2026-10-02T00:00:00.000Z"),
+    startDate: new Date("2025-09-01T00:00:00.000Z"),
+    endDate: new Date("2025-09-02T00:00:00.000Z"),
     startTime: "09:00",
     endTime: "18:00",
 

@@ -1,9 +1,7 @@
-export type TicketGroup = "BUNDLE" | "SOLO" | "TEAM";
-
 export type Ticket = {
   id: string;
   name: string;
-  group: TicketGroup;
+  group: string;
   price: number;
   description: string | null;
   includes: string[];
@@ -11,22 +9,16 @@ export type Ticket = {
   sortOrder: number;
 };
 
-export type EventContact = {
-  role: string;
-  name: string;
-  phone: string;
-};
-
 export type EventDetail = {
   id: string;
   title: string;
   venue: string;
+  bannerImage: string,
   startDate: Date;
   endDate: Date;
   startTime: string;
   endTime: string;
   description: string;
-  contacts: EventContact[] | null;
   tickets: Ticket[];
 };
 

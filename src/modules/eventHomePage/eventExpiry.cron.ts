@@ -16,14 +16,6 @@ export const startEventExpiryCron = () => {
       try {
         const now = new Date();
 
-   
-        const bdNow = new Intl.DateTimeFormat("en-GB", {
-          timeZone: "Asia/Dhaka",
-          hour: "2-digit",
-          minute: "2-digit",
-          hourCycle: "h23",
-        }).format(now);
-
         const bdToday = new Intl.DateTimeFormat("en-CA", {
           timeZone: "Asia/Dhaka",
           year: "numeric",
@@ -40,42 +32,36 @@ export const startEventExpiryCron = () => {
           },
           select: {
             id: true,
-            eventDate: true,
-            endTime: true,
+            startDate: true,
+            endDate: true,
+            startTime: true,
+            status: true,
           },
         });
 
         const expiredIds = events
           .filter((event) => {
-            const eventDate = new Intl.DateTimeFormat("en-CA", {
-              timeZone: "Asia/Dhaka",
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-            }).format(event.eventDate);
 
+            const lastDate = event.endDate ?? event.startDate;
 
-            if (eventDate < bdToday) {
-              return true;
-            }
-
+            if (!lastDate) return false;
    
-            if (eventDate > bdToday) {
-              return false;
-            }
+            const eventDay = new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Asia/Dhaka",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          }).format(new Date(lastDate));
 
 
-            if (event.endTime) {
-              return bdNow >= event.endTime;
-            }
-            return false;
-          })
-          .map((event) => event.id);
+          if (eventDay < bdToday) return true;
 
-        if (expiredIds.length === 0) {
-          return;
-        }
+         if (eventDay > bdToday) return false;
 
+         return false;
+
+         })
+         .map((event) => event.id);
   
         await prisma.event.updateMany({
           where: {

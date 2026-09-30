@@ -39,6 +39,7 @@ model EventDetail {
   event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
   title       String
+  bannerImage String
   venue       String                
   startDate   DateTime           
   endDate     DateTime           
@@ -46,7 +47,6 @@ model EventDetail {
   endTime     String                
 
   description String   @db.Text
-  contacts    Json?
 
   tickets     Ticket[]  
 }
@@ -58,7 +58,7 @@ model Ticket {
   eventDetail   EventDetail @relation(fields: [eventDetailId], references: [id], onDelete: Cascade)
 
   name          String
-  group         TicketGroup
+  group         String
   price         Int
   description   String?
   includes      String[]
@@ -66,11 +66,4 @@ model Ticket {
   sortOrder     Int         @default(0)
 
   @@index([eventDetailId])
-}
-
-
-enum TicketGroup {
-  BUNDLE
-  SOLO
-  TEAM
 }
